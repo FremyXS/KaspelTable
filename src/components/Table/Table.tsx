@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { DataType } from "../../types";
 import { Table as TableAntd, Space, Button, Input, Radio, RadioChangeEvent } from "antd";
+import { filterBySearchParam, sortedByDate } from "../../commons/sortings";
+import { SearchParamsEnum } from "./types";
 
 import './Table.scss';
-import { sortedByDate } from "../../commons/sortings";
 
 interface ITable {
     onAddClick: () => void,
@@ -13,8 +14,13 @@ interface ITable {
 }
 
 function Table({ onAddClick, onDeleteClick, onChangeClick, data }: ITable) {
-    const [searchParam, setSearchParam] = useState<number>(1);
+    const [searchParam, setSearchParam] = useState<number>(SearchParamsEnum.All);
     const [searchData, setSearchData] = useState<string>("");
+    const [dataSource, setDataSource] = useState<DataType[]>(data);
+
+    useEffect(() => {
+        setDataSource(data);
+    }, [data]);
 
     const columns = [
         {
@@ -62,20 +68,30 @@ function Table({ onAddClick, onDeleteClick, onChangeClick, data }: ITable) {
         }
     ];
 
+    const onClickSearch = () => {
+        if (searchData == null || searchData.length === 0) {
+            setDataSource(data);
+        }
+        else {
+            setDataSource(filterBySearchParam(data, searchParam, searchData))
+        }
+    }
+
     const getTitle = () => {
         return (
             <div className="table-title">
                 <Space.Compact>
-                    <Input 
-                    placeholder="Search" 
-                    value={searchData}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setSearchData(event.target.value)} />
+                    <Input.Search placeholder="searching..."
+                        onSearch={onClickSearch}
+                        enterButton
+                        value={searchData}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => setSearchData(event.target.value)} />
                     <Radio.Group value={searchParam}
                         onChange={(e: RadioChangeEvent) => setSearchParam(e.target.value)}>
-                        <Radio value={1}>All</Radio>
-                        <Radio value={2}>Name</Radio>
-                        <Radio value={3}>Date</Radio>
-                        <Radio value={4}>Num</Radio>
+                        <Radio value={SearchParamsEnum.All}>All</Radio>
+                        <Radio value={SearchParamsEnum.Name}>Name</Radio>
+                        <Radio value={SearchParamsEnum.Date}>Date</Radio>
+                        <Radio value={SearchParamsEnum.Num}>Num</Radio>
                     </Radio.Group>
                 </Space.Compact>
                 <Button size="middle" onClick={onAddClick} type="dashed">
@@ -84,11 +100,12 @@ function Table({ onAddClick, onDeleteClick, onChangeClick, data }: ITable) {
             </div>
         )
     }
+
     return (
         <div className="table">
             <TableAntd
                 bordered
-                dataSource={data}
+                dataSource={dataSource}
                 columns={columns}
                 title={() => getTitle()} />
         </div>
