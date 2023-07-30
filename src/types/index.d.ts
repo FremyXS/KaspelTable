@@ -4,3 +4,9 @@ export type DataType = {
     date: string,
     num: number,
 }
+
+export type ErrorMessageType = {
+    item?: string,
+    message?: string,
+    value: boolean
+}
