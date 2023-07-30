@@ -5,6 +5,7 @@ import Input from './components/Input/Input';
 import Button from './components/Button/Button';
 import { DataType } from './types';
 import { dataMock } from './components/Table/mocks';
+import { dataValidator } from './commons/validators';
 
 import './App.css';
 
@@ -12,7 +13,7 @@ function App() {
   const [isShowWindow, setIsShowWindow] = useState<boolean>();
   const [data, setData] = useState<DataType[]>(dataMock);
   const [formData, setFormData] = useState<DataType>({
-    key:0,
+    key: 0,
     name: "",
     date: "",
     num: 0,
@@ -20,9 +21,15 @@ function App() {
   const [indexChange, setIndexChange] = useState<number | null>(null);
 
   const handleAddDataClick = () => {
+    const valid = dataValidator(formData);
+    if (valid !== true) {
+      alert(valid.message);
+      return;
+    }
+
     const reForm: DataType = {
       ...formData,
-      key:( indexChange !== null)? indexChange : data.length
+      key: (indexChange !== null) ? indexChange : data.length
     }
 
     if (indexChange !== null) {
@@ -39,13 +46,13 @@ function App() {
       setData([...data, reForm]);
     }
 
-
     setFormData({
-      key:0,
+      key: 0,
       name: "",
       date: "",
       num: 0,
     });
+
     setIsShowWindow(false);
   }
 
@@ -70,7 +77,7 @@ function App() {
   }
 
   const onCloseModalWindow = () => {
-    setIsShowWindow(false);    
+    setIsShowWindow(false);
     setIndexChange(null);
   }
 
@@ -94,7 +101,7 @@ function App() {
           onChange={(event: ChangeEvent<HTMLInputElement>) => onChangeForm(event)} />
         <Button type='button'
           onClick={() => handleAddDataClick()}>
-          {indexChange !== null? 'Change' : 'Add'}
+          {indexChange !== null ? 'Change' : 'Add'}
         </Button>
       </ModalWindow>
     )
