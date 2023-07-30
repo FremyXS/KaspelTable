@@ -3,6 +3,7 @@ import { DataType } from "../../types";
 import { Table as TableAntd, Space, Button, Input, Radio, RadioChangeEvent } from "antd";
 
 import './Table.scss';
+import { sortedByDate } from "../../commons/sortings";
 
 interface ITable {
     onAddClick: () => void,
@@ -12,14 +13,8 @@ interface ITable {
 }
 
 function Table({ onAddClick, onDeleteClick, onChangeClick, data }: ITable) {
-
     const [searchParam, setSearchParam] = useState<number>(1);
     const [searchData, setSearchData] = useState<string>("");
-
-    const sortedByData = (a: Date, b: Date) => {
-        const difference = a.getTime() - b.getTime();
-        return difference / (1000 * 3600 * 24);
-    }
 
     const columns = [
         {
@@ -36,7 +31,7 @@ function Table({ onAddClick, onDeleteClick, onChangeClick, data }: ITable) {
             dataIndex: 'date',
             key: 'date',
             sorter: {
-                compare: (a: any, b: any) => sortedByData(new Date(a.date), new Date(b.date)),
+                compare: (a: any, b: any) => sortedByDate(new Date(a.date), new Date(b.date)),
                 multiple: 2,
             },
         },
