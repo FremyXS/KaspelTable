@@ -7,6 +7,7 @@ function ModalWindow({ children, onClick }: { children: ReactNode, onClick: () =
         <div className="modal-window">
             <div className="modal-window-form">
                 <div className="modal-window-form__head">
+                    <p>Kaspel</p>
                     <button type="button" onClick={onClick}>Exit</button>
                 </div>
                 <div className="modal-window-form__body">
