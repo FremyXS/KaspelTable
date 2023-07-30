@@ -107,7 +107,13 @@ function Table({ onAddClick, onDeleteClick, onChangeClick, data }: ITable) {
                 bordered
                 dataSource={dataSource}
                 columns={columns}
-                title={() => getTitle()} />
+                title={() => getTitle()}
+                pagination={{
+                    pageSize: 50,
+                }}
+                scroll={{
+                    y: 240,
+                }} />
         </div>
     )
 }
