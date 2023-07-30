@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/KaspelTable/static/css/main.e255a46b.css",
+    "main.js": "/KaspelTable/static/js/main.c6204d7b.js",
+    "static/js/787.036a3782.chunk.js": "/KaspelTable/static/js/787.036a3782.chunk.js",
+    "index.html": "/KaspelTable/index.html",
+    "main.e255a46b.css.map": "/KaspelTable/static/css/main.e255a46b.css.map",
+    "main.c6204d7b.js.map": "/KaspelTable/static/js/main.c6204d7b.js.map",
+    "787.036a3782.chunk.js.map": "/KaspelTable/static/js/787.036a3782.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e255a46b.css",
+    "static/js/main.c6204d7b.js"
+  ]
+}
