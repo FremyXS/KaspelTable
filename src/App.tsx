@@ -69,9 +69,14 @@ function App() {
     });
   }
 
+  const onCloseModalWindow = () => {
+    setIsShowWindow(false);    
+    setIndexChange(null);
+  }
+
   const handleGetModalWindow = (formData: DataType) => {
     return (
-      <ModalWindow onClick={() => setIsShowWindow(false)}>
+      <ModalWindow onClick={() => onCloseModalWindow()}>
         <Input labelName='Name'
           type='text'
           name='name'
@@ -89,7 +94,7 @@ function App() {
           onChange={(event: ChangeEvent<HTMLInputElement>) => onChangeForm(event)} />
         <Button type='button'
           onClick={() => handleAddDataClick()}>
-          Add
+          {indexChange !== null? 'Change' : 'Add'}
         </Button>
       </ModalWindow>
     )
