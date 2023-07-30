@@ -1,0 +1,27 @@
+.component-button{
+    display: inline-block;
+    background-color: #cf70f5;
+    border-radius: 10px;
+    overflow: hidden;
+
+    button {
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        background: inherit;
+
+        font-size: 20px;
+        color: #fff;
+        padding: 10px 20px;
+    }
+
+    &:hover {
+        background: inherit;
+        border: 2px solid #cf70f5;
+
+        button {
+            color: #cf70f5;
+            padding: 8px 18px;
+        }
+    }
+}

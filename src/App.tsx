@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Table from './components/Table/Table';
+import ModalWindow from './components/ModalWindow/ModalWindow';
+import Input from './components/Input/Input';
+
 import './App.css';
+import Button from './components/Button/Button';
 
 function App() {
+  const [isShowWindow, setIsShowWindow] = useState<boolean>();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isShowWindow &&
+        <ModalWindow onClick={() => setIsShowWindow(false)}>
+          <Input labelName='Name' />
+          <Input labelName='Date' />
+          <Input labelName='Num' />
+          <Button type='button'>
+            Add
+          </Button>
+        </ModalWindow>
+      }
+      <Table onAddClick={() => setIsShowWindow(true)} />
     </div>
   );
 }

@@ -1,0 +1,32 @@
+.component-input{
+    position: relative;
+    display: inline-block;
+
+    &__label{
+        position: absolute;
+        left: 10px;
+        top: 2px;
+        color: #cf70f5;
+        font-weight: 500;
+    }
+
+    input{
+        border: 0;
+        outline: 0;
+        cursor: pointer;
+        background-color: #fff;
+
+        font-size: 23px;
+        padding: 20px 10px 5px;
+        border-radius: 5px;
+        border: 2px solid #cf70f5;
+        color: #989898;
+
+        &:focus, &:hover{
+            border: 2px solid #b700ff;
+        }
+
+    }
+
+
+}
