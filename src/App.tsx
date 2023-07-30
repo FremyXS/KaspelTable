@@ -15,9 +15,21 @@ function App() {
     date: "",
     num: 0,
   });
+  const [indexChange, setIndexChange] = useState<number | null>(null);
 
   const handleAddDataClick = () => {
-    setData([...data, formData]);
+    if (indexChange) {
+      setData([
+        ...data.slice(0, indexChange),
+        formData,
+        ...data.slice(indexChange + 1, data.length)
+      ]);
+
+      setIndexChange(null);
+    }
+    else {
+      setData([...data, formData]);
+    }
     setFormData({
       name: "",
       date: "",
@@ -27,8 +39,14 @@ function App() {
   }
 
   const handleDeleteDataByIndexClick = (index: number) => {
-    const reData = [...data.slice(0, index), ...data.slice(index+1, data.length)];
+    const reData = [...data.slice(0, index), ...data.slice(index + 1, data.length)];
     setData(reData);
+  }
+
+  const handleChangeDataClick = (index: number, data: DataType) => {
+    setFormData(data);
+    setIndexChange(index);
+    setIsShowWindow(true);
   }
 
   const onChangeForm = (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,35 +58,40 @@ function App() {
     });
   }
 
+  const handleGetModalWindow = (formData: DataType) => {
+    return (
+      <ModalWindow onClick={() => setIsShowWindow(false)}>
+        <Input labelName='Name'
+          type='text'
+          name='name'
+          value={formData.name}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => onChangeForm(event)} />
+        <Input labelName='Date'
+          type='date'
+          name='date'
+          value={formData.date}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => onChangeForm(event)} />
+        <Input labelName='Num'
+          type='number'
+          name='num'
+          value={formData.num}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => onChangeForm(event)} />
+        <Button type='button'
+          onClick={() => handleAddDataClick()}>
+          Add
+        </Button>
+      </ModalWindow>
+    )
+  }
+
   return (
     <div className="App">
-      {isShowWindow &&
-        <ModalWindow onClick={() => setIsShowWindow(false)}>
-          <Input labelName='Name'
-            type='text'
-            name='name'
-            value={formData.name}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => onChangeForm(event)} />
-          <Input labelName='Date'
-            type='date'
-            name='date'
-            value={formData.date}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => onChangeForm(event)} />
-          <Input labelName='Num'
-            type='number'
-            name='num'
-            value={formData.num}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => onChangeForm(event)} />
-          <Button type='button'
-            onClick={() => handleAddDataClick()}>
-            Add
-          </Button>
-        </ModalWindow>
-      }
-      <Table 
-      data={data} 
-      onAddClick={() => setIsShowWindow(true)}
-      onDeleteClick={(index: number) => handleDeleteDataByIndexClick(index)} />
+      {isShowWindow && handleGetModalWindow(formData)}
+      <Table
+        data={data}
+        onAddClick={() => setIsShowWindow(true)}
+        onDeleteClick={(index: number) => handleDeleteDataByIndexClick(index)}
+        onChangeClick={(index: number, data: DataType) => handleChangeDataClick(index, data)} />
     </div>
   );
 }
