@@ -29,7 +29,7 @@ function Table({ onAddClick, onDeleteClick, onChangeClick, data }: ITable) {
             key: 'name',
             sorter: {
                 compare: (a: any, b: any) => a.name.localeCompare(b.name),
-                multiple: 1,
+                multiple: 3,
             },
         },
         {
@@ -47,7 +47,7 @@ function Table({ onAddClick, onDeleteClick, onChangeClick, data }: ITable) {
             key: 'num',
             sorter: {
                 compare: (a: any, b: any) => a.num - b.num,
-                multiple: 3,
+                multiple: 1,
             },
         },
         {

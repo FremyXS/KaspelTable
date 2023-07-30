@@ -4,12 +4,13 @@ import ModalWindow from './components/ModalWindow/ModalWindow';
 import Input from './components/Input/Input';
 import Button from './components/Button/Button';
 import { DataType } from './types';
+import { dataMock } from './components/Table/mocks';
 
 import './App.css';
 
 function App() {
   const [isShowWindow, setIsShowWindow] = useState<boolean>();
-  const [data, setData] = useState<DataType[]>([]);
+  const [data, setData] = useState<DataType[]>(dataMock);
   const [formData, setFormData] = useState<DataType>({
     key:0,
     name: "",
@@ -23,10 +24,6 @@ function App() {
       ...formData,
       key:( indexChange !== null)? indexChange : data.length
     }
-
-    console.log(indexChange);
-    console.log(reForm);
-
 
     if (indexChange !== null) {
 
