@@ -60,7 +60,7 @@ function App() {
           </Button>
         </ModalWindow>
       }
-      <Table onAddClick={() => setIsShowWindow(true)} />
+      <Table data={data} onAddClick={() => setIsShowWindow(true)} />
     </div>
   );
 }

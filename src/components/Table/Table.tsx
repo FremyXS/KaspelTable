@@ -1,31 +1,21 @@
 import React from "react";
+import { DataType } from "../../types";
+import TableHead from "./components/TableHead/TableHead";
 
 import './Table.scss';
+import TableElement from "./components/TableElement/TableElement";
 
-function Table({onAddClick}:{onAddClick: () => void}) {
+function Table({onAddClick, data}:{onAddClick: () => void, data: DataType[]}) {
     return(
         <div className="table">
             <button type="button"
             onClick={onAddClick}>Add</button>
             <table>
-                <thead>
-                    <tr>
-                        <td>
-                            <span>Name</span>
-                        </td>
-                        <td>
-                            <span>Date</span>
-                        </td>
-                        <td>
-                            <span>Num</span>
-                        </td>
-                        <td>
-                            <span style={{display: 'none'}}>Actions</span>
-                        </td>
-                    </tr>
-                </thead>
+                <TableHead />
                 <tbody>
-                    
+                    {data.map((row, index)=>
+                        <TableElement key={index} data={row} />
+                    )}
                 </tbody>
             </table>
         </div>
