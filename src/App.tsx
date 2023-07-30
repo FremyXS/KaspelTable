@@ -11,6 +11,7 @@ function App() {
   const [isShowWindow, setIsShowWindow] = useState<boolean>();
   const [data, setData] = useState<DataType[]>([]);
   const [formData, setFormData] = useState<DataType>({
+    key:0,
     name: "",
     date: "",
     num: 0,
@@ -18,19 +19,32 @@ function App() {
   const [indexChange, setIndexChange] = useState<number | null>(null);
 
   const handleAddDataClick = () => {
-    if (indexChange) {
+    const reForm: DataType = {
+      ...formData,
+      key:( indexChange !== null)? indexChange : data.length
+    }
+
+    console.log(indexChange);
+    console.log(reForm);
+
+
+    if (indexChange !== null) {
+
       setData([
         ...data.slice(0, indexChange),
-        formData,
+        reForm,
         ...data.slice(indexChange + 1, data.length)
       ]);
 
       setIndexChange(null);
     }
     else {
-      setData([...data, formData]);
+      setData([...data, reForm]);
     }
+
+
     setFormData({
+      key:0,
       name: "",
       date: "",
       num: 0,
