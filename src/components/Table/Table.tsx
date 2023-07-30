@@ -1,20 +1,27 @@
 import React from "react";
 import { DataType } from "../../types";
 import TableHead from "./components/TableHead/TableHead";
-
-import './Table.scss';
 import TableElement from "./components/TableElement/TableElement";
 
-function Table({onAddClick, data}:{onAddClick: () => void, data: DataType[]}) {
-    return(
+import './Table.scss';
+
+interface ITable {
+    onAddClick: () => void,
+    onDeleteClick: (index: number) => void,
+    data: DataType[],
+}
+
+function Table({ onAddClick, onDeleteClick, data }: ITable) {
+    return (
         <div className="table">
             <button type="button"
-            onClick={onAddClick}>Add</button>
+                onClick={onAddClick}>Add</button>
             <table>
                 <TableHead />
                 <tbody>
-                    {data.map((row, index)=>
-                        <TableElement key={index} data={row} />
+                    {data.map((row, index) =>
+                        <TableElement key={index} index={index} data={row}
+                            onDeleteClick={(index: number) => onDeleteClick(index)} />
                     )}
                 </tbody>
             </table>

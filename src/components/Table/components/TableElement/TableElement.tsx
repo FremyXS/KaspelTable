@@ -1,8 +1,8 @@
 import React from "react";
 import { DataType } from "../../../../types";
 
-function TableElement({data}:{data: DataType}){
-    return(
+function TableElement({ data, index, onDeleteClick }: { data: DataType, index: number, onDeleteClick: (index: number) => void }) {
+    return (
         <tr className="table-element">
             <td>
                 <span>{data.name}</span>
@@ -14,7 +14,7 @@ function TableElement({data}:{data: DataType}){
                 <span>{data.num}</span>
             </td>
             <td>
-                <button type="button">Delete</button>
+                <button type="button" onClick={() => onDeleteClick(index)}>Delete</button>
                 <button type="button">Change</button>
             </td>
         </tr>

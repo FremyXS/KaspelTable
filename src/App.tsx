@@ -26,6 +26,11 @@ function App() {
     setIsShowWindow(false);
   }
 
+  const handleDeleteDataByIndexClick = (index: number) => {
+    const reData = [...data.slice(0, index), ...data.slice(index+1, data.length)];
+    setData(reData);
+  }
+
   const onChangeForm = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
@@ -60,7 +65,10 @@ function App() {
           </Button>
         </ModalWindow>
       }
-      <Table data={data} onAddClick={() => setIsShowWindow(true)} />
+      <Table 
+      data={data} 
+      onAddClick={() => setIsShowWindow(true)}
+      onDeleteClick={(index: number) => handleDeleteDataByIndexClick(index)} />
     </div>
   );
 }
