@@ -27,6 +27,8 @@ function Table({ onAddClick, onDeleteClick, onChangeClick, data }: ITable) {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            with: 100,
+            fixed: true,
             sorter: {
                 compare: (a: any, b: any) => a.name.localeCompare(b.name),
                 multiple: 3,
@@ -108,11 +110,9 @@ function Table({ onAddClick, onDeleteClick, onChangeClick, data }: ITable) {
                 dataSource={dataSource}
                 columns={columns}
                 title={() => getTitle()}
-                pagination={{
-                    pageSize: 50,
-                }}
                 scroll={{
                     y: 240,
+                    x: 790,
                 }} />
         </div>
     )
